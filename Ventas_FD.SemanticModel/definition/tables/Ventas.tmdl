@@ -65,7 +65,8 @@ table Ventas
 		annotation SummarizationSetBy = Automatic
 
 	column Vendedor
-		dataType: string
+		dataType: int64
+		formatString: 0
 		lineageTag: 670e8ce1-c1c7-476c-899f-a379c99f4c16
 		summarizeBy: none
 		sourceColumn: Vendedor
@@ -281,9 +282,10 @@ table Ventas
 		mode: import
 		source =
 				let
-				    Origen = Table.Combine({VentasSAP_2025, VentasSAP_2026})
+				    Origen = Table.Combine({VentasSAP_2025, VentasSAP_2026}),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen,{{"Vendedor", Int64.Type}})
 				in
-				    Origen
+				    #"Tipo cambiado"
 
 	annotation PBI_NavigationStepName = Navegación
 

@@ -88,7 +88,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'feb'"
+                                "Value": "'jun'"
                               }
                             }
                           ]
@@ -132,5 +132,23 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "41264c7a4add9059d3b2",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fechas"
+              }
+            },
+            "Property": "NbMes3txt"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
   }
 }

@@ -132,5 +132,51 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "808571de577892c7137a",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "Ventas"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "d7c9fbf78130ec3abb0e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Medidas"
+              }
+            },
+            "Property": "ObjetivosVtaSDI"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "4357e755a3362b3d719d",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Regionales"
+              }
+            },
+            "Property": "Regional"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
   }
 }
