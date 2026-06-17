@@ -1,0 +1,106 @@
+table Vendedores
+	lineageTag: 8f4efc82-b075-4452-ba24-4efa6f7537f3
+
+	column Codigo
+		dataType: int64
+		formatString: 0
+		lineageTag: 757691f4-289b-4e9a-b1dd-e7775026e1d0
+		summarizeBy: none
+		sourceColumn: Codigo
+
+		annotation SummarizationSetBy = Automatic
+
+	column NbVendedor
+		dataType: string
+		lineageTag: cfea4ca0-e99f-4deb-956e-84c75966451d
+		summarizeBy: none
+		sourceColumn: NbVendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column VendedorReg
+		dataType: int64
+		formatString: 0
+		lineageTag: cf1b0c4e-0010-4093-9e0d-9b60f6e40300
+		summarizeBy: sum
+		sourceColumn: VendedorReg
+
+		annotation SummarizationSetBy = Automatic
+
+	column ItemRRHH
+		dataType: int64
+		formatString: 0
+		lineageTag: 59a5a5dc-2205-4278-ab8f-75ab6dbcd047
+		summarizeBy: sum
+		sourceColumn: ItemRRHH
+
+		annotation SummarizationSetBy = Automatic
+
+	column NbVendedorRRHH
+		dataType: string
+		lineageTag: d68cfddd-2fdc-47bd-989d-1de8c9b2bca8
+		summarizeBy: none
+		sourceColumn: NbVendedorRRHH
+
+		annotation SummarizationSetBy = Automatic
+
+	column SucursalVendedor
+		dataType: int64
+		formatString: 0
+		lineageTag: 545fe36c-f485-4fea-8e90-4d1de129b8e5
+		summarizeBy: sum
+		sourceColumn: SucursalVendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column CargoVendedor
+		dataType: string
+		lineageTag: 1db4c0b2-7512-441b-a10b-1f2ce1e565c1
+		summarizeBy: none
+		sourceColumn: CargoVendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column UsuarioSAP
+		dataType: string
+		lineageTag: 1cfda0f0-a20a-4d51-a532-2e2eee190d7d
+		summarizeBy: none
+		sourceColumn: UsuarioSAP
+
+		annotation SummarizationSetBy = Automatic
+
+	column Column9
+		dataType: string
+		lineageTag: 63a77479-f50f-4ce2-87da-d59310974e2d
+		summarizeBy: none
+		sourceColumn: Column9
+
+		annotation SummarizationSetBy = Automatic
+
+	column Equipo
+		dataType: string
+		lineageTag: e73cc2bc-fa55-4d17-95b6-325e74c69b72
+		summarizeBy: none
+		sourceColumn: Equipo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Vendedores = m
+		mode: import
+		source =
+				let
+				    Origen = PowerBI.Dataflows(null),
+				    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+				    #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"]}[Data],
+				    Vendedores1 = #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"{[entity="Vendedores"]}[Data],
+				    #"Consultas combinadas" = Table.NestedJoin(Vendedores1, {"Codigo"}, VendedoresSDI, {"Id Vend."}, "VendedoresSDI", JoinKind.LeftOuter),
+				    #"Se expandió VendedoresSDI" = Table.ExpandTableColumn(#"Consultas combinadas", "VendedoresSDI", {"EQ. INGENIERIA"}, {"VendedoresSDI.EQ. INGENIERIA"}),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Se expandió VendedoresSDI",{{"VendedoresSDI.EQ. INGENIERIA", "Equipo"}}),
+				    #"Valor reemplazado" = Table.ReplaceValue(#"Columnas con nombre cambiado",null,"",Replacer.ReplaceValue,{"Equipo"})
+				in
+				    #"Valor reemplazado"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

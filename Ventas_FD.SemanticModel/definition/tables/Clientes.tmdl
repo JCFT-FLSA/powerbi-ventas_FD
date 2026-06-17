@@ -1,0 +1,146 @@
+table Clientes
+	lineageTag: a6d2a13c-571b-4e95-94fb-c62f2c189f3e
+
+	column Qty
+		dataType: double
+		lineageTag: 465c96a1-3454-4d62-8585-aadec4e70eff
+		summarizeBy: sum
+		sourceColumn: Qty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Región
+		dataType: string
+		lineageTag: d8f83251-21f9-45c1-a13c-6357b75e5855
+		summarizeBy: none
+		sourceColumn: Región
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Grupo de cuentas'
+		dataType: string
+		lineageTag: dea26d4b-084d-4c45-8af6-94ba260624d3
+		summarizeBy: none
+		sourceColumn: Grupo de cuentas
+
+		annotation SummarizationSetBy = Automatic
+
+	column Centro
+		dataType: string
+		lineageTag: d3a00067-00b9-4166-800b-7d04f12998ae
+		summarizeBy: none
+		sourceColumn: Centro
+
+		annotation SummarizationSetBy = Automatic
+
+	column NIT_1
+		dataType: string
+		lineageTag: ae3d39b2-9ec1-4a2d-9b9e-def5f8130cab
+		summarizeBy: none
+		sourceColumn: NIT_1
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cliente
+		dataType: int64
+		formatString: 0
+		lineageTag: 3b92ce02-8b7e-4b60-b2ac-52d6c6aa039a
+		summarizeBy: sum
+		sourceColumn: Cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fecha Registro'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 26cd85f0-d6aa-411a-a758-73babbf46a50
+		summarizeBy: none
+		sourceColumn: Fecha Registro
+
+		variation Variación
+			isDefault
+			relationship: 96d1a559-c441-475a-a255-caf4dfd29c6d
+			defaultHierarchy: LocalDateTable_2e981781-971d-4b9f-8581-1a79aa30ffd5.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column NIT
+		dataType: string
+		lineageTag: 0719b727-09ee-4b0c-b5a3-246742bcc91a
+		summarizeBy: none
+		sourceColumn: NIT
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbCliente
+		dataType: string
+		lineageTag: 82929f91-717c-4c67-b8a1-ae0f7a0fadb5
+		summarizeBy: none
+		sourceColumn: nbCliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column Latitud
+		dataType: double
+		lineageTag: 7475cfd8-29c1-40e3-88a7-65954735b28c
+		summarizeBy: sum
+		sourceColumn: Latitud
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Longitud
+		dataType: double
+		lineageTag: 18804f78-6c9e-45cf-9e67-eaf6081b5bd0
+		summarizeBy: sum
+		sourceColumn: Longitud
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Sector
+		dataType: string
+		lineageTag: 8cf42529-53e7-494e-ae90-b24001d83ab9
+		summarizeBy: none
+		sourceColumn: Sector
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ramo
+		dataType: string
+		lineageTag: 8a680360-988e-4b59-a79f-e3e5ef008065
+		summarizeBy: none
+		sourceColumn: Ramo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Clientes = m
+		mode: import
+		source =
+				let
+				    Origen = PowerBI.Dataflows(null),
+				    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+				    #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"]}[Data],
+				    Clientes1 = #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"{[entity="Clientes"]}[Data],
+				    #"Valor reemplazado" = Table.ReplaceValue(Clientes1,"#","Sin asignar",Replacer.ReplaceText,{"Sector"}),
+				    #"Consultas combinadas" = Table.NestedJoin(#"Valor reemplazado", {"Sector"}, Sectores, {"Sector"}, "Sectores", JoinKind.LeftOuter),
+				    #"Se expandió Sectores" = Table.ExpandTableColumn(#"Consultas combinadas", "Sectores", {"nbSector"}, {"Sectores.nbSector"}),
+				    #"Columnas quitadas" = Table.RemoveColumns(#"Se expandió Sectores",{"Sector"}),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Columnas quitadas",{{"Sectores.nbSector", "Sector"}}),
+				    #"Consultas combinadas1" = Table.NestedJoin(#"Columnas con nombre cambiado", {"Ramo"}, Ramos, {"Ramo"}, "Ramos", JoinKind.LeftOuter),
+				    #"Se expandió Ramos" = Table.ExpandTableColumn(#"Consultas combinadas1", "Ramos", {"nbRamo"}, {"Ramos.nbRamo"}),
+				    #"Columnas quitadas1" = Table.RemoveColumns(#"Se expandió Ramos",{"Ramo"}),
+				    #"Columnas con nombre cambiado1" = Table.RenameColumns(#"Columnas quitadas1",{{"Ramos.nbRamo", "Ramo"}})
+				in
+				    #"Columnas con nombre cambiado1"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

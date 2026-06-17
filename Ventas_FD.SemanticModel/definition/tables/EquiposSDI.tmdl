@@ -1,0 +1,25 @@
+table EquiposSDI
+	lineageTag: 00a741a4-eceb-403a-9d74-64efbeb7b7aa
+
+	column Equipo
+		dataType: string
+		lineageTag: 9e45d485-c666-4fb5-91f5-afe881eb66f8
+		summarizeBy: none
+		sourceColumn: Equipo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition EquiposSDI = m
+		mode: import
+		source =
+				let
+				    Origen = MaterialesSDI,
+				    #"Otras columnas quitadas" = Table.SelectColumns(Origen,{"Equipo"}),
+				    #"Duplicados quitados" = Table.Distinct(#"Otras columnas quitadas")
+				in
+				    #"Duplicados quitados"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

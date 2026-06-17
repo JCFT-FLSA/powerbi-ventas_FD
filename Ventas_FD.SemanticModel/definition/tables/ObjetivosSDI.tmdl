@@ -1,0 +1,66 @@
+table ObjetivosSDI
+	lineageTag: f384078e-541d-466d-8b6d-1fec0c9d6f4d
+
+	column Periodo
+		dataType: dateTime
+		formatString: yyyy-mm
+		lineageTag: b7cbbe91-6a76-42d4-b11e-b78e4cd38f91
+		summarizeBy: none
+		sourceColumn: Periodo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Equipo
+		dataType: string
+		lineageTag: 7f5ba3aa-d251-4c46-a50b-52292fad90e8
+		summarizeBy: none
+		sourceColumn: Equipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regional
+		dataType: int64
+		formatString: 0
+		lineageTag: 40286e4f-856b-4d5d-ac82-bc5605bb129d
+		summarizeBy: none
+		sourceColumn: Regional
+
+		annotation SummarizationSetBy = Automatic
+
+	column Objetivo
+		dataType: double
+		lineageTag: da2e1338-472b-4e3f-be7d-721ef3cd2bd9
+		summarizeBy: sum
+		sourceColumn: Objetivo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UtilidadObj
+		dataType: double
+		lineageTag: 77a69987-5c9a-479c-81b0-17d79948ce43
+		summarizeBy: sum
+		sourceColumn: UtilidadObj
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition ObjetivosSDI = m
+		mode: import
+		source =
+				let
+				    Origen = Table.Combine({ObjetivosSDI_2025, ObjetivosSDI_2026}),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(Origen,{{"Tipo de Servicio", "Equipo"}})
+				in
+				    #"Columnas con nombre cambiado"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

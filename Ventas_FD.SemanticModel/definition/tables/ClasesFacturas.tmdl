@@ -1,0 +1,40 @@
+table ClasesFacturas
+	lineageTag: 39b58250-b055-4cff-9c9c-8917ae9a78ca
+
+	column ClaseFactura
+		dataType: string
+		lineageTag: bb80952a-64f7-4ce3-b500-e8c7d99349b9
+		summarizeBy: none
+		sourceColumn: ClaseFactura
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbClaseFactura
+		dataType: string
+		lineageTag: 2c0b065b-800c-43ac-ac34-9bab9caea022
+		summarizeBy: none
+		sourceColumn: nbClaseFactura
+
+		annotation SummarizationSetBy = Automatic
+
+	column ClaseDocumento
+		dataType: string
+		lineageTag: 3bd9c994-8d13-4841-928b-450af9048005
+		summarizeBy: none
+		sourceColumn: ClaseDocumento
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ClasesFacturas = m
+		mode: import
+		source =
+				let
+				    Origen = PowerBI.Dataflows(null),
+				    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+				    #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"]}[Data],
+				    ClasesFacturas1 = #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"{[entity="ClasesFacturas"]}[Data]
+				in
+				    ClasesFacturas1
+
+	annotation PBI_ResultType = Table
+

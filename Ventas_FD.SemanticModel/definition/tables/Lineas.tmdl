@@ -1,0 +1,36 @@
+table Lineas
+	lineageTag: fa0d12e0-f2ce-45ad-aaca-0f28ffe65dfc
+
+	column Linea
+		dataType: string
+		lineageTag: dc6512c9-f6d3-4306-a145-2422e5ecf5f8
+		summarizeBy: none
+		sourceColumn: Linea
+
+		annotation SummarizationSetBy = Automatic
+
+	column Portafolio
+		dataType: string
+		lineageTag: fa0fa5dc-2cb9-44f8-a3c4-eb06cd6d09af
+		summarizeBy: none
+		sourceColumn: Portafolio
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Lineas = m
+		mode: import
+		source =
+				let
+				    Origen = PowerBI.Dataflows(null),
+				    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+				    #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"]}[Data],
+				    Materiales_Atrib1 = #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"{[entity="Materiales_Atrib"]}[Data],
+				    #"Otras columnas quitadas" = Table.SelectColumns(Materiales_Atrib1,{"Linea", "Portafolio"}),
+				    #"Duplicados quitados" = Table.Distinct(#"Otras columnas quitadas")
+				in
+				    #"Duplicados quitados"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

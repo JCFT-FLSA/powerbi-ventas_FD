@@ -1,0 +1,106 @@
+# =========================================================
+# Power BI PBIP Project - Enterprise Git Ignore
+# =========================================================
+
+# ---------------------------------------------------------
+# Power BI cache / local workspace
+# ---------------------------------------------------------
+**/.pbi/
+**/Cache/
+**/AnalysisServicesWorkspaces/
+**/DataMashup/
+**/PerformanceTraces.zip
+**/FrownSnapShot*
+**/*.lock
+**/*.ldb
+
+# ---------------------------------------------------------
+# Temporary / autosave files
+# ---------------------------------------------------------
+*.tmp
+*.temp
+*.bak
+*.autosave
+*.pbix.autosave
+
+# ---------------------------------------------------------
+# User-specific configuration
+# ---------------------------------------------------------
+*.user
+*.suo
+*.rsuser
+
+# ---------------------------------------------------------
+# Power BI legacy artifacts
+# ---------------------------------------------------------
+*.pbix
+
+# Optional:
+# Uncomment if you want to exclude templates too
+*.pbit
+
+# ---------------------------------------------------------
+# Logs
+# ---------------------------------------------------------
+*.log
+
+# ---------------------------------------------------------
+# VS Code / Visual Studio
+# ---------------------------------------------------------
+.vscode/
+.vs/
+
+# ---------------------------------------------------------
+# Python virtual environments
+# ---------------------------------------------------------
+venv/
+.venv/
+.env/
+__pycache__/
+*.pyc
+
+# ---------------------------------------------------------
+# Node / npm (custom visuals or tooling)
+# ---------------------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ---------------------------------------------------------
+# OS generated files
+# ---------------------------------------------------------
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# ---------------------------------------------------------
+# Fabric / deployment artifacts
+# ---------------------------------------------------------
+.fabric/
+dist/
+build/
+out/
+
+# ---------------------------------------------------------
+# Sensitive configuration files
+# ---------------------------------------------------------
+secrets.json
+appsettings.local.json
+local.settings.json
+
+# =========================================================
+# IMPORTANT:
+# Keep these PBIP artifacts versioned:
+#
+# *.pbip
+# *.Report/
+# *.SemanticModel/
+#
+# These contain:
+# - report definitions
+# - DAX measures
+# - semantic model metadata
+# - relationships
+# - visuals
+# =========================================================

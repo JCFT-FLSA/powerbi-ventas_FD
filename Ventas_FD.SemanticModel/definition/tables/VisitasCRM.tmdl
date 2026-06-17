@@ -1,0 +1,51 @@
+table VisitasCRM
+	lineageTag: a418e70e-c44a-41e4-b836-59f6ab0cc493
+
+	column Periodo
+		dataType: dateTime
+		formatString: yyyy-mm
+		lineageTag: cdb3a5f8-e111-4d32-8321-61882d9c8081
+		summarizeBy: none
+		sourceColumn: Periodo
+
+		variation Variación
+			isDefault
+			relationship: e945187b-9f28-41eb-9974-a53f7451608f
+			defaultHierarchy: LocalDateTable_296e49ee-4732-4472-95f5-19c8f1df20a3.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Canal
+		dataType: int64
+		formatString: 0
+		lineageTag: 1a120ffc-551f-4fb5-9a7f-660662bf2cf0
+		summarizeBy: sum
+		sourceColumn: Canal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Visitas
+		dataType: int64
+		formatString: 0
+		lineageTag: cd43aa58-f646-4612-a3a9-a20e374c4460
+		summarizeBy: sum
+		sourceColumn: Visitas
+
+		annotation SummarizationSetBy = Automatic
+
+	partition VisitasCRM = m
+		mode: import
+		source =
+				let
+				    Origen = Table.Combine({#"CRM-Visitas_2025", #"CRM-Visitas_2026"})
+				in
+				    Origen
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

@@ -1,0 +1,225 @@
+table Medidas
+	lineageTag: 18d841ea-1e18-4e7d-a288-92918bf0985a
+
+	measure VentasBs = SUM(Ventas[Venta])
+		formatString: #,0
+		displayFolder: Ventas
+		lineageTag: 6a2ba49e-e5e5-4d5b-93af-689afb27919f
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure TC_Sus = SELECTEDVALUE(Fechas[TC_$us], BLANK())
+		displayFolder: TC
+		lineageTag: cc1960ba-4263-47e7-814c-b20ad631e4e5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Ventas$us = DIVIDE( [VentasBs], [TC_Sus] )
+		formatString: #,0
+		displayFolder: Ventas
+		lineageTag: ee355e42-7578-4a49-8373-0375906ebc2d
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure Ventas = ```
+			
+			    IF (
+			        SELECTEDVALUE(Monedas[CodMoneda]) = "$us",
+			        [Ventas$us],
+			        [VentasBs]
+			    )
+			```
+		formatString: #,0
+		displayFolder: Ventas
+		lineageTag: b6109c5d-fc06-4aec-a383-6cf71184d26f
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure ObjetivoVtaBs = SUM(Objetivos[ObjetivoBs])
+		formatString: #,0
+		displayFolder: Objetivos
+		lineageTag: 8b515cba-5291-4bf0-9ef0-6275b22c1cfa
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure ObjetivoVta$us = DIVIDE([ObjetivoVtaBs], [TC_Sus])
+		formatString: #,0
+		displayFolder: Objetivos
+		lineageTag: e1d207fd-ecd8-43ff-ab3b-5520c93a2c28
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure ObjetivosVta = ```
+			
+			    IF (
+			        SELECTEDVALUE(Monedas[CodMoneda]) = "$us",
+			        [ObjetivoVta$us],
+			        [ObjetivoVtaBs]
+			    )
+			```
+		formatString: #,0
+		displayFolder: Objetivos
+		lineageTag: 4e6d0c2e-b4b9-4c4f-97af-4f9e7873a573
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure Avance% = DIVIDE([VentasBs], [ObjetivoVtaBs])
+		formatString: #,0
+		displayFolder: Avance
+		lineageTag: 4e70b42c-9ba4-48ba-a7b5-effaaa6eb108
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure Qty = SUM(Ventas[Qty])
+		formatString: #,0
+		displayFolder: Qty
+		lineageTag: 33b85816-829f-466d-9a99-30f18f3cc2e6
+
+	measure QtyContenido = SUM(Ventas[QtyContenido])
+		formatString: #,0
+		displayFolder: Qty
+		lineageTag: b9cee998-0a5e-49b4-a401-1aa468ecc876
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure ObjetivoVta$us_SDI = SUM(ObjetivosSDI[Objetivo])
+		formatString: #,0
+		displayFolder: Objetivos
+		lineageTag: 9d6fd881-604d-49e0-9ebe-0dac95025db3
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure ObjetivoVtaBs_SDI = [ObjetivoVta$us_SDI] * [TC_Sus]
+		formatString: #,0
+		displayFolder: Objetivos
+		lineageTag: 90018fc8-04f6-44c9-ac0d-817d2246cf43
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure ObjetivosVtaSDI = ```
+			
+			    IF (
+			        SELECTEDVALUE(Monedas[CodMoneda]) = "$us",
+			        [ObjetivoVta$us_SDI],
+			        [ObjetivoVtaBs_SDI]
+			    )
+			```
+		formatString: #,0
+		displayFolder: Objetivos
+		lineageTag: 2047af63-f814-47ae-924a-f6791cbbe795
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure UtilidadObj$us = SUM(Objetivos[UtilidadObj])
+		formatString: #,0
+		displayFolder: Objetivos
+		lineageTag: 34c2c254-17dd-4a70-971e-69a81dbd60b3
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure UtilidadObjBs = DIVIDE([UtilidadObj$us], [TC_Sus])
+		formatString: #,0
+		displayFolder: Objetivos
+		lineageTag: 5abce64f-e12c-4868-a619-7e0c57adb4a0
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure UtilidadObj = ```
+			
+			    IF (
+			        SELECTEDVALUE(Monedas[CodMoneda]) = "$us",
+			        [UtilidadObj$us],
+			        [UtilidadObjBs]
+			    )
+			```
+		formatString: #,0
+		displayFolder: Objetivos
+		lineageTag: 92524837-0d6b-4de8-8109-7b360f11a201
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure UtilidadObj$us_SDI = SUM(ObjetivosSDI[UtilidadObj])
+		formatString: #,0
+		displayFolder: Objetivos
+		lineageTag: 7fa47df5-e989-4e21-ba01-584297500092
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure UtilidadObjBs_SDI = [UtilidadObj$us_SDI] * [TC_Sus]
+		formatString: #,0
+		displayFolder: Objetivos
+		lineageTag: 8038272c-9f1a-4f94-96d4-9204121211ce
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure UtilidadObj_SDI = ```
+			
+			    IF (
+			        SELECTEDVALUE(Monedas[CodMoneda]) = "$us",
+			        [UtilidadObj$us_SDI],
+			        [UtilidadObjBs_SDI]
+			    )
+			```
+		formatString: #,0
+		displayFolder: Objetivos
+		lineageTag: 64c3baf2-dc40-4412-9169-ae325cafcfc8
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure '% Cumplimiento' = DIVIDE([VentasBs], [ObjetivoVtaBs_SDI])
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		displayFolder: Objetivos
+		lineageTag: fd6ead35-109d-46da-ac6c-466a888430dc
+
+	measure PrecioVenta = DIVIDE([Ventas],  0.87)
+		formatString: #,0
+		displayFolder: Ventas
+		lineageTag: 9081fa6d-c640-435e-803c-ae2bbe0568b2
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure PrecioUnidad = DIVIDE([PrecioVenta], [QtyContenido])
+		formatString: #,0.00
+		displayFolder: Ventas
+		lineageTag: 91828bb4-34e5-482a-a050-dfc06190a2fc
+
+	measure CostosBs = SUM(Ventas[Costo])
+		displayFolder: Costos
+		lineageTag: 0c34674d-47d1-41ff-b370-d7f21c18b036
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Costos$us = DIVIDE([CostosBs], [TC_Sus])
+		displayFolder: Costos
+		lineageTag: 94d23a56-3de3-42e9-aea2-0ba2b1bb3cc8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Costos = ```
+			
+			    IF (
+			        SELECTEDVALUE(Monedas[CodMoneda]) = "$us",
+			        [Costos$us],
+			        [CostosBs]
+			    )
+			```
+		formatString: #,0
+		displayFolder: Costos
+		lineageTag: e6cc9974-884e-40c1-90f5-4cb5410de473
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	partition Medidas = m
+		mode: import
+		source =
+				let
+				    Origen = PowerBI.Dataflows(null),
+				    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+				    #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"]}[Data],
+				    Medidas1 = #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"{[entity="Medidas"]}[Data],
+				    #"Columnas quitadas" = Table.RemoveColumns(Medidas1,{"Columna 1"})
+				in
+				    #"Columnas quitadas"
+
+	annotation PBI_ResultType = Table
+

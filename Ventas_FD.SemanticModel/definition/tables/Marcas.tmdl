@@ -1,0 +1,44 @@
+table Marcas
+	lineageTag: 87378c20-d913-4757-9a0d-5e50e0d1e967
+
+	column Qty
+		dataType: double
+		lineageTag: 1c3e3fe3-9a81-48d6-bdb3-f4579fe10f0a
+		summarizeBy: none
+		sourceColumn: Qty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column nbMarca
+		dataType: string
+		lineageTag: 3c6daec0-412e-416f-a33b-e3efe898ddb8
+		summarizeBy: none
+		sourceColumn: nbMarca
+
+		annotation SummarizationSetBy = Automatic
+
+	column Marca
+		dataType: string
+		lineageTag: 1940990e-cdde-488b-be5c-2f7778a53fda
+		summarizeBy: none
+		sourceColumn: Marca
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Marcas = m
+		mode: import
+		source =
+				let
+				    Origen = PowerBI.Dataflows(null),
+				    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+				    #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"]}[Data],
+				    Marcas1 = #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"{[entity="Marcas"]}[Data]
+				in
+				    Marcas1
+
+	annotation PBI_ResultType = Exception
+
+	annotation PBI_NavigationStepName = Navegación
+

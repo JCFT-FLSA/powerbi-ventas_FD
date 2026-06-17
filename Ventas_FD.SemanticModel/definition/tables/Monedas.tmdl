@@ -1,0 +1,40 @@
+table Monedas
+	lineageTag: 30a78521-a1a0-442a-8e4d-e68acd41d38b
+
+	column CodMoneda
+		dataType: string
+		lineageTag: fec3588f-e8fd-4802-8ab1-9deeeea9d32c
+		summarizeBy: none
+		sourceColumn: CodMoneda
+
+		annotation SummarizationSetBy = Automatic
+
+	column Moneda
+		dataType: string
+		lineageTag: a4625111-c390-42ce-a17c-6aa1c225824e
+		summarizeBy: none
+		sourceColumn: Moneda
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbMoneda
+		dataType: string
+		lineageTag: 30466be1-a039-41b7-bc17-a49caec0b546
+		summarizeBy: none
+		sourceColumn: nbMoneda
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Monedas = m
+		mode: import
+		source =
+				let
+				    Origen = PowerBI.Dataflows(null),
+				    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+				    #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"]}[Data],
+				    Monedas1 = #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"{[entity="Monedas"]}[Data]
+				in
+				    Monedas1
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,76 @@
+table VisitasCRM_SDI
+	lineageTag: 5fad1a1a-a753-48ba-b017-0db79dabf936
+
+	column Periodo
+		dataType: dateTime
+		formatString: yyyy-mm
+		lineageTag: f1fed26f-e8f8-4420-9cb5-ce038030c85d
+		summarizeBy: none
+		sourceColumn: Periodo
+
+		variation Variación
+			isDefault
+			relationship: 65916d31-4dab-474e-a0e5-4f06abbfc683
+			defaultHierarchy: LocalDateTable_0778d9a7-278c-410c-8951-024845c2561d.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Canal
+		dataType: string
+		lineageTag: ad959683-0d2d-4bba-848d-8cf6a92ea54f
+		summarizeBy: none
+		sourceColumn: Canal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Visitas
+		dataType: int64
+		formatString: 0
+		lineageTag: f1d3fbf8-2536-4991-986b-85ee82c74738
+		summarizeBy: sum
+		sourceColumn: Visitas
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tareas
+		dataType: int64
+		formatString: 0
+		lineageTag: 37f0aad2-22d6-43b4-9ef6-1d986ebd4b3c
+		summarizeBy: sum
+		sourceColumn: Tareas
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nombre
+		dataType: string
+		lineageTag: 89c4bece-8000-41d5-b497-28c55033d466
+		summarizeBy: none
+		sourceColumn: Nombre
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Codigo de vendedor'
+		dataType: int64
+		formatString: 0
+		lineageTag: dfaa0bee-f0f3-4c5f-90c4-a2952d8ec0d6
+		summarizeBy: sum
+		sourceColumn: Codigo de vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	partition VisitasCRM_SDI = m
+		mode: import
+		source =
+				let
+				    Origen = Table.Combine({#"CRM-Visitas SDI_2025", #"CRM-Visitas SDI_2026"})
+				in
+				    Origen
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

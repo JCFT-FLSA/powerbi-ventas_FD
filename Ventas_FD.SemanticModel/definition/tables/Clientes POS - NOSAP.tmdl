@@ -1,0 +1,153 @@
+table 'Clientes POS - NOSAP'
+	lineageTag: 96078823-7faf-4544-9528-98da3293845d
+
+	column 'Cantidad Cliente'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4583fa5d-e82f-4cb0-ad44-64701f49e4f0
+		summarizeBy: sum
+		sourceColumn: Cantidad Cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cliente Nivel 01'
+		dataType: string
+		lineageTag: fe072523-f4d4-41b0-a227-e791ee501548
+		summarizeBy: none
+		sourceColumn: Cliente Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cliente Regular Nivel 01'
+		dataType: string
+		lineageTag: bb2a8546-cf73-4df8-98c0-10840e9bbcf3
+		summarizeBy: none
+		sourceColumn: Cliente Regular Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Correo Electrónico Nivel 01'
+		dataType: string
+		lineageTag: 74e7baf7-14b8-4fa5-b3fd-9758cac753b1
+		summarizeBy: none
+		sourceColumn: Correo Electrónico Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Día natural Nivel 01'
+		dataType: string
+		lineageTag: 5aad1a8b-8c48-411c-a2f6-c849422fb6a1
+		summarizeBy: none
+		sourceColumn: Día natural Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dirección Nivel 01'
+		dataType: string
+		lineageTag: 98828747-2f28-4fb4-9d09-4d4dc4fb131c
+		summarizeBy: none
+		sourceColumn: Dirección Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID Cliente Nivel 01'
+		dataType: string
+		lineageTag: 42018b09-26fb-4d43-9d0d-3afce74491b5
+		summarizeBy: none
+		sourceColumn: ID Cliente Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'NIT Nivel 01'
+		dataType: string
+		lineageTag: 0662c4ca-7ef0-4bf9-9000-7b805c6dd759
+		summarizeBy: none
+		sourceColumn: NIT Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nombre Completo Clie Nivel 01'
+		dataType: string
+		lineageTag: 3590b191-ed01-42f6-a89e-6deb6ff5755c
+		summarizeBy: none
+		sourceColumn: Nombre Completo Clie Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'País Nivel 01'
+		dataType: string
+		lineageTag: 7260c569-0684-42ab-b7fc-eecfdd6a0573
+		summarizeBy: none
+		sourceColumn: País Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Población Nivel 01'
+		dataType: string
+		lineageTag: 6ccb9fa5-3809-4777-ab8e-1194581715a5
+		summarizeBy: none
+		sourceColumn: Población Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ramo Nivel 01'
+		dataType: string
+		lineageTag: 31507210-ca96-4161-8d39-5b11ae8b9ad9
+		summarizeBy: none
+		sourceColumn: Ramo Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Región Nivel 01'
+		dataType: string
+		lineageTag: 7e5072ac-8e68-4260-81f8-67c7d756efa8
+		summarizeBy: none
+		sourceColumn: Región Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Teléfono Nivel 01'
+		dataType: string
+		lineageTag: 9a8b7dc6-e7ed-4b38-8ae8-268ebd896551
+		summarizeBy: none
+		sourceColumn: Teléfono Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Teléfono Móvil Nivel 01'
+		dataType: string
+		lineageTag: 8de17685-c5c0-4782-aaa2-98c09cb2397c
+		summarizeBy: none
+		sourceColumn: Teléfono Móvil Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tipo NIF Nivel 01'
+		dataType: string
+		lineageTag: 3e053b6e-8f95-408b-9f1c-2544bb4bfd2f
+		summarizeBy: none
+		sourceColumn: Tipo NIF Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tratamiento Cliente Nivel 01'
+		dataType: string
+		lineageTag: 22c67af6-e05d-4250-9437-0291207fb271
+		summarizeBy: none
+		sourceColumn: Tratamiento Cliente Nivel 01
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Clientes POS - NOSAP' = m
+		mode: import
+		source =
+				let
+				    Origen = PowerBI.Dataflows(null),
+				    #"8a0370d2-c851-40af-9111-fcb301e92ea5" = Origen{[workspaceId="8a0370d2-c851-40af-9111-fcb301e92ea5"]}[Data],
+				    #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a" = #"8a0370d2-c851-40af-9111-fcb301e92ea5"{[dataflowId="8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"]}[Data],
+				    #"Clientes POS - NOSAP1" = #"8c10ea0c-1410-4c0a-a06a-4da9d35c9b8a"{[entity="Clientes POS - NOSAP"]}[Data]
+				in
+				    #"Clientes POS - NOSAP1"
+
+	annotation PBI_ResultType = Table
+

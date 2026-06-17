@@ -1,0 +1,291 @@
+table Ventas
+	lineageTag: 0cc54d53-6a32-48c4-8438-1a1a1b4f4956
+
+	column 'Canal distribución'
+		dataType: int64
+		formatString: 0
+		lineageTag: 71587f8b-f7c0-45d6-a485-d2d809bfa2be
+		summarizeBy: none
+		sourceColumn: Canal distribución
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Clase de factura'
+		dataType: string
+		lineageTag: 62185152-62de-4b93-be05-292df49d2e93
+		summarizeBy: none
+		sourceColumn: Clase de factura
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fecha
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 0b764fc9-4139-4de4-8d3c-e41f86c5af21
+		summarizeBy: none
+		sourceColumn: Fecha
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Factura
+		dataType: string
+		lineageTag: 1f1ae638-9144-4c36-8e9b-17ba90a2d8d0
+		summarizeBy: none
+		sourceColumn: Factura
+
+		annotation SummarizationSetBy = Automatic
+
+	column Material
+		dataType: int64
+		formatString: 0
+		lineageTag: d21e0619-2384-49ad-8cce-99173013d0b7
+		summarizeBy: none
+		sourceColumn: Material
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sucursal
+		dataType: string
+		lineageTag: 53c0b624-adf8-419e-8374-2cba63d42161
+		summarizeBy: none
+		sourceColumn: Sucursal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Promoción
+		dataType: string
+		lineageTag: e86da925-a5bf-44c2-809d-a4b5b0cd08eb
+		summarizeBy: none
+		sourceColumn: Promoción
+
+		annotation SummarizationSetBy = Automatic
+
+	column Vendedor
+		dataType: string
+		lineageTag: 670e8ce1-c1c7-476c-899f-a379c99f4c16
+		summarizeBy: none
+		sourceColumn: Vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sector
+		dataType: string
+		lineageTag: d3691b44-1548-4513-b0e9-772c3458aa42
+		summarizeBy: none
+		sourceColumn: Sector
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cliente
+		dataType: int64
+		formatString: 0
+		lineageTag: 91fafe5c-1e07-4851-8e55-38c0445c94e6
+		summarizeBy: sum
+		sourceColumn: Cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column Costo
+		dataType: double
+		lineageTag: 4e6e7671-a0ba-4ef2-96c7-5f9c022eb62f
+		summarizeBy: sum
+		sourceColumn: Costo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Qty
+		dataType: double
+		formatString: 0
+		lineageTag: f880c162-97ce-40c2-a7be-14966d97368b
+		summarizeBy: sum
+		sourceColumn: Qty
+
+		annotation SummarizationSetBy = Automatic
+
+	column Facturado
+		dataType: double
+		lineageTag: ab8c0805-52c3-4d24-8cb3-c8e2fce18f5a
+		summarizeBy: sum
+		sourceColumn: Facturado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Descuento
+		dataType: double
+		lineageTag: 01af29b9-af99-4922-9172-43d1c625a5ce
+		summarizeBy: sum
+		sourceColumn: Descuento
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DescuentoBruto
+		dataType: double
+		lineageTag: 8edee956-b08f-4eea-a1e6-d5e8fb50090f
+		summarizeBy: sum
+		sourceColumn: DescuentoBruto
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Precio
+		dataType: double
+		lineageTag: eacc3194-7b49-4cd8-8dd6-d4b11da4ce0d
+		summarizeBy: sum
+		sourceColumn: Precio
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Venta
+		dataType: double
+		lineageTag: d13b2b2f-d36a-4994-9b9d-1950a178e621
+		summarizeBy: sum
+		sourceColumn: Venta
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column OfiVentas = ```
+			
+			VAR _xOficinaDeVentas = 
+			    CALCULATE(
+			            VALUES(Sucursales_info[CodSuc]),
+			            FILTER(Sucursales_info, Sucursales_info[Oficina de Ventas] = Ventas[Sucursal])
+			        )
+			       
+			VAR _xVendedor = 
+			        CALCULATE(
+			            VALUES(Vendedores[SucursalVendedor]),
+			            FILTER(Vendedores, Vendedores[Codigo] = Ventas[Vendedor])
+			        )
+			RETURN
+			    IF (
+			        OR (
+			            OR(
+			                Ventas[Canal distribución] = 20,
+			                Ventas[Canal distribución] = 30),
+			            Ventas[Canal distribución] = 11),
+			        IF ( 
+			            OR(ISBLANK(_xVendedor), _xVendedor = 0),
+			            _xOficinaDeVentas,
+			            _xVendedor
+			        ),// Canal 10 toma la oficina de ventas de la factura
+			        _xOficinaDeVentas
+			    )
+			```
+		formatString: 0
+		lineageTag: 02ec5c44-96d2-47c0-b880-57864e32600e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column IVT_Cartera = ```
+			
+			    IF(
+			        AND(
+			            OR(
+			            Ventas[Canal distribución] = 11,
+			            Ventas[Canal distribución] = 20
+			            ),
+			            RELATED(Fechas[Año]) >= 2021
+			        ),
+			        CALCULATE(
+			            MAX(CarteraIVT[Vendedor]),
+			            FILTER(
+			                CarteraIVT,
+			                CarteraIVT[Cartera] = Ventas[Cliente] &&
+			                CarteraIVT[Periodo]  = RELATED(Fechas[AñoMes]) &&
+			                CarteraIVT[Regional] = RELATED(Sucursales[SucursalReg]) && 
+			                CarteraIVT[CanalVendedor] = Ventas[Canal distribución]
+			            )
+			        ),
+			        BLANK()
+			    )
+			```
+		lineageTag: 0d324b7d-fde9-4470-89a4-536004a08396
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column nbIVT_Cartera = ```
+			
+			    CALCULATE(
+			        VALUES(Vendedores[NbVendedor]),
+			        FILTER(
+			            Vendedores,
+			            Vendedores[Codigo] = Ventas[IVT_Cartera]
+			        )
+			    )
+			```
+		lineageTag: 44c5dfc4-13eb-4e1e-b2fc-2a92ff602c4c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nit
+		dataType: string
+		lineageTag: 68a93772-350d-4904-a102-31b970671eea
+		summarizeBy: none
+		sourceColumn: Nit
+
+		annotation SummarizationSetBy = Automatic
+
+	column QtyContenido = ```
+			
+			VAR _Contenido = 
+			    IF(
+			        RELATED(Materiales[Contenido neto]) = 0,
+			        1,
+			        RELATED(Materiales[Contenido neto])
+			    )
+			RETURN
+			Ventas[Qty] * _Contenido
+			```
+		lineageTag: b7400d3d-f40a-4bb8-8b5c-f708b5434bb3
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Centro
+		dataType: string
+		lineageTag: 29e5e017-9ce4-4f86-aa8c-f65dcf184077
+		summarizeBy: none
+		sourceColumn: Centro
+
+		annotation SummarizationSetBy = Automatic
+
+	column División
+		dataType: string
+		lineageTag: d5aa2ccc-c701-414c-a11b-781743dfd824
+		summarizeBy: none
+		sourceColumn: División
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Ventas = m
+		mode: import
+		source =
+				let
+				    Origen = Table.Combine({VentasSAP_2025, VentasSAP_2026})
+				in
+				    Origen
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

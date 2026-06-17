@@ -1,0 +1,90 @@
+table CarteraIVT
+	lineageTag: 5497e9a3-5863-474e-80c6-965280588197
+
+	column Gestion
+		dataType: int64
+		formatString: 0
+		lineageTag: 41379e4f-7b27-4949-b033-93b1f766f171
+		summarizeBy: sum
+		sourceColumn: Gestion
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regional
+		dataType: int64
+		formatString: 0
+		lineageTag: d4b5b166-1f3b-46d1-a013-59980d454a5d
+		summarizeBy: sum
+		sourceColumn: Regional
+
+		annotation SummarizationSetBy = Automatic
+
+	column Vendedor
+		dataType: int64
+		formatString: 0
+		lineageTag: 31750003-ee81-4b69-836d-872c67fe1cce
+		summarizeBy: sum
+		sourceColumn: Vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cartera
+		dataType: int64
+		formatString: 0
+		lineageTag: dffebd0c-4d1b-404c-a41d-7ab605567508
+		summarizeBy: sum
+		sourceColumn: Cartera
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes
+		dataType: int64
+		formatString: 0
+		lineageTag: 25b7c957-2881-4ad5-933b-258cefffd2d2
+		summarizeBy: sum
+		sourceColumn: Mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column CanalVendedor
+		dataType: int64
+		formatString: 0
+		lineageTag: 91d42832-750a-4d05-9871-943c0ef8b939
+		summarizeBy: sum
+		sourceColumn: CanalVendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Periodo
+		dataType: dateTime
+		formatString: yyyy-mm
+		lineageTag: a3e8e011-3b60-47f9-aaf1-1a86898a39b1
+		summarizeBy: none
+		sourceColumn: Periodo
+
+		variation Variación
+			isDefault
+			relationship: a7230e97-4358-47dc-aa1b-b5b3eca7eb8c
+			defaultHierarchy: LocalDateTable_5c496b81-a88d-4e01-8b97-60aa8123d034.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	partition CarteraIVT = m
+		mode: import
+		source =
+				let
+				    Origen = Table.Combine({Carteras2025, Carteras2026}),
+				    #"Filas filtradas" = Table.SelectRows(Origen, each true),
+				    #"Personalizada agregada" = Table.AddColumn(#"Filas filtradas", "Periodo", each "01/" & Number.ToText([Mes]) & "/" & Number.ToText([Gestion])),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Personalizada agregada",{{"Periodo", type date}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Exception
+

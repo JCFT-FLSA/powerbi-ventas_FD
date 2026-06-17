@@ -1,0 +1,47 @@
+model Model
+	culture: es-BO
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-BO
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["VentasSAP_2025","VentasSAP_2026","Ventas","Objetivos2025","Objetivos2026","Objetivos","ObjetivosSDI_2025","ObjetivosSDI_2026","ObjetivosSDI","MaterialesSDI_2025","MaterialesSDI_2026","MaterialesSDI","Carteras2025","Carteras2026","CarteraIVT","Vendedores","Sucursales","Regionales","Materiales","CRM-Visitas_2025","CRM-Visitas_2026","VisitasCRM","CRM-Visitas SDI_2026","CRM-Visitas SDI_2025","VisitasCRM_SDI","Fechas","Lineas","Canales","ClasesFacturas","Clientes","Clientes POS - NOSAP","Marcas","Medidas","Monedas","Ramos","Sectores","Sucursales_info","Clientes-NIT","EquiposSDI","EquipoSDI_2025","VendedoresSDI"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table DateTableTemplate_508a1f0b-5c09-4a09-90c8-0bc243d453b8
+ref table Vendedores
+ref table Sucursales
+ref table Materiales
+ref table LocalDateTable_7787a29d-4950-4f45-8f3a-1a6a9cf0fa3d
+ref table VisitasCRM
+ref table LocalDateTable_296e49ee-4732-4472-95f5-19c8f1df20a3
+ref table VisitasCRM_SDI
+ref table LocalDateTable_0778d9a7-278c-410c-8951-024845c2561d
+ref table Ventas
+ref table Objetivos
+ref table ObjetivosSDI
+ref table MaterialesSDI
+ref table CarteraIVT
+ref table Fechas
+ref table LocalDateTable_aebbcb01-4a5d-4026-bde2-6d111800dd97
+ref table LocalDateTable_476e430d-4cde-4bdc-9476-71dd2facc13c
+ref table Lineas
+ref table Canales
+ref table ClasesFacturas
+ref table Clientes
+ref table LocalDateTable_2e981781-971d-4b9f-8581-1a79aa30ffd5
+ref table 'Clientes POS - NOSAP'
+ref table Marcas
+ref table Medidas
+ref table Monedas
+ref table LocalDateTable_5c496b81-a88d-4e01-8b97-60aa8123d034
+ref table Sucursales_info
+ref table Regionales
+ref table EquiposSDI
+
+ref cultureInfo es-BO
+

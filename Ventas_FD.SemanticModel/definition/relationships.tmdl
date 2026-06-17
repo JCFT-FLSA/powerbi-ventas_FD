@@ -1,0 +1,113 @@
+relationship fdeaaea1-4621-4ef8-9f74-cbae8895f2d3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Materiales.'Creado el'
+	toColumn: LocalDateTable_7787a29d-4950-4f45-8f3a-1a6a9cf0fa3d.Date
+
+relationship e945187b-9f28-41eb-9974-a53f7451608f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: VisitasCRM.Periodo
+	toColumn: LocalDateTable_296e49ee-4732-4472-95f5-19c8f1df20a3.Date
+
+relationship 65916d31-4dab-474e-a0e5-4f06abbfc683
+	joinOnDateBehavior: datePartOnly
+	fromColumn: VisitasCRM_SDI.Periodo
+	toColumn: LocalDateTable_0778d9a7-278c-410c-8951-024845c2561d.Date
+
+relationship AutoDetected_482d5dbc-2715-44a9-9bb6-9f573fd0e6bb
+	fromColumn: Ventas.Material
+	toColumn: Materiales.Material
+
+relationship bbe46be0-a1ae-4652-98d0-6a886796dca3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fechas.Fecha
+	toColumn: LocalDateTable_aebbcb01-4a5d-4026-bde2-6d111800dd97.Date
+
+relationship 4c297226-826c-4fd3-b8b0-e068623eb5bd
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fechas.AñoMes
+	toColumn: LocalDateTable_476e430d-4cde-4bdc-9476-71dd2facc13c.Date
+
+relationship 51fa2f49-6516-4d06-3bdf-e18b041b5cc2
+	fromColumn: Ventas.Fecha
+	toColumn: Fechas.Fecha
+
+relationship 596a71f5-3cda-98e2-4852-d7a1cbd004f4
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: Materiales.Material
+	toColumn: MaterialesSDI.Material
+
+relationship 96d1a559-c441-475a-a255-caf4dfd29c6d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Clientes.'Fecha Registro'
+	toColumn: LocalDateTable_2e981781-971d-4b9f-8581-1a79aa30ffd5.Date
+
+relationship AutoDetected_fcc04c5e-f45a-40b3-b4cc-068c9d324b81
+	fromColumn: Materiales.Linea
+	toColumn: Lineas.Linea
+
+relationship AutoDetected_e9bcf495-dc30-4096-afb8-fc6530c0ca42
+	fromColumn: Objetivos.Linea
+	toColumn: Lineas.Linea
+
+relationship AutoDetected_d2bac1c1-bdc2-441d-8896-5616a1a88416
+	fromColumn: Materiales.Marca
+	toColumn: Marcas.Marca
+
+relationship a7230e97-4358-47dc-aa1b-b5b3eca7eb8c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: CarteraIVT.Periodo
+	toColumn: LocalDateTable_5c496b81-a88d-4e01-8b97-60aa8123d034.Date
+
+relationship ee82fbf2-6c17-f479-bc88-58e8c80bbd83
+	fromColumn: Ventas.OfiVentas
+	toColumn: Sucursales.CodSuc
+
+relationship 7b8a92c8-d851-84ad-d1f1-fe12f3bda908
+	fromColumn: Objetivos.Sucursal
+	toColumn: Sucursales.CodSuc
+
+relationship e973d8c4-85e5-7feb-26a6-aa6f6c40ed36
+	fromColumn: Objetivos.Canal
+	toColumn: Canales.CodCanal
+
+relationship f3e682c6-d7fe-2763-cc97-2bb5f00c4d04
+	fromColumn: Objetivos.Vendedor
+	toColumn: Vendedores.Codigo
+
+relationship 587546bc-4843-0a87-638b-62b1d18c3e32
+	fromColumn: Objetivos.Periodo
+	toColumn: Fechas.Fecha
+
+relationship 9b2ffb4b-ea93-1468-6400-c4ab40983043
+	fromColumn: ObjetivosSDI.Periodo
+	toColumn: Fechas.Fecha
+
+relationship AutoDetected_45f7e7dc-119f-4e41-bb72-61c6906de9fd
+	fromColumn: Sucursales_info.Regional
+	toColumn: Regionales.Regional
+
+relationship 9183d771-7e6c-56c5-1f21-547d230dfe73
+	fromColumn: ObjetivosSDI.Regional
+	toColumn: Regionales.CodRegional
+
+relationship 52f176e6-b4e5-6d50-9668-73555ce9098f
+	fromColumn: Sucursales.SucursalReg
+	toColumn: Regionales.CodRegional
+
+relationship AutoDetected_c075c70f-9e1c-445a-972e-97f7a844dd07
+	fromColumn: ObjetivosSDI.Equipo
+	toColumn: EquiposSDI.Equipo
+
+relationship AutoDetected_7947adc6-1b5f-4aa3-ba4e-d75d825bdd4e
+	fromColumn: MaterialesSDI.Equipo
+	toColumn: EquiposSDI.Equipo
+
+relationship 20ae27cf-425b-fcb6-7a96-75d288c508d9
+	fromColumn: Ventas.Vendedor
+	toColumn: Vendedores.Codigo
+
+relationship fed53743-aec2-aee3-24bb-9dbb7424e0e9
+	fromColumn: Ventas.'Canal distribución'
+	toColumn: Canales.CodCanal
+

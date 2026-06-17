@@ -1,0 +1,51 @@
+table MaterialesSDI
+	lineageTag: 1e527c79-847d-40f4-9b13-8444723c2cb0
+
+	column Material
+		dataType: int64
+		formatString: 0
+		lineageTag: 6b511db1-6109-486b-a6ff-f4f3870615e3
+		summarizeBy: none
+		sourceColumn: Material
+
+		annotation SummarizationSetBy = Automatic
+
+	column TEXTO_BREVE
+		dataType: string
+		lineageTag: 53ed68f4-9d18-4057-bdc1-6117a10e45ea
+		summarizeBy: none
+		sourceColumn: TEXTO_BREVE
+
+		annotation SummarizationSetBy = Automatic
+
+	column Servicio
+		dataType: string
+		lineageTag: cc1c703c-8494-4532-8d87-01d3a9319004
+		summarizeBy: none
+		sourceColumn: Servicio
+
+		annotation SummarizationSetBy = Automatic
+
+	column Equipo
+		dataType: string
+		lineageTag: fc047af7-2926-4fa9-ad45-a3a8ad64abaa
+		summarizeBy: none
+		sourceColumn: Equipo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition MaterialesSDI = m
+		mode: import
+		source =
+				let
+				    Origen = Table.Combine({MaterialesSDI_2026}),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(Origen,{{"EQ. TRABAJO", "Equipo"}, {"CODIGO", "Material"}}),
+				    #"Duplicados quitados" = Table.Distinct(#"Columnas con nombre cambiado"),
+				    #"Filas ordenadas" = Table.Sort(#"Duplicados quitados",{{"Material", Order.Ascending}})
+				in
+				    #"Filas ordenadas"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
